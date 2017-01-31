@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import _ from 'lodash';
 import { generate } from './data';
+import moment from 'moment';
+import Timer from './Timer';
 
 export default class App extends Component {
   constructor() {
@@ -34,6 +36,7 @@ export default class App extends Component {
       <section>
         <h1>Minesweeper!</h1>
         <button onClick={(e) => this.doClick(e)}>Start/Reset</button>
+        <Timer start={moment()} />
         <div>
           {_.map(this.state.board, (i, key) => {
             const css = {
