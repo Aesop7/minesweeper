@@ -29,3 +29,9 @@ export const generate = (size = 3, bombs = 1) => {
   }
   return bombArray;
 };
+
+export const scanCell = (bombArray, x, y) => {
+  if (_.find(bombArray, { row: y, column: x, bomb: 'boom'})) {
+    alert('You blew up!!');
+  }
+};
