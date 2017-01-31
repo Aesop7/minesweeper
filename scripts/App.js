@@ -23,19 +23,19 @@ export default class App extends Component {
   componentDidMount() {
   }
 
-  doClick(e) {
+  doClick = (e) => {
     e.preventDefault();
     this.setState({
       board: generate(this.state.gameLevel, this.state.bombs)
     });
-  }
+  };
 
   render() {
     return (
       // Add your component markup and other subcomponent references here.
       <section>
         <h1>Minesweeper!</h1>
-        <button onClick={(e) => this.doClick(e)}>Start/Reset</button>
+        <button onClick={this.doClick}>Start/Reset</button>
         <Timer start={moment()} />
         <div>
           {_.map(this.state.board, (i, key) => {
