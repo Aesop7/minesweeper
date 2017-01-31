@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import _ from 'lodash';
-import { generate } from './data';
+import { generate, scanCell } from './data';
 import moment from 'moment';
 import Timer from './Timer';
+import Cell from './Cell'
 
 export default class App extends Component {
   constructor() {
@@ -30,6 +31,11 @@ export default class App extends Component {
     });
   };
 
+  cellClick = (x, y) => {
+    console.log(x, y);
+    scanCell(this.state.board, x, y);
+  };
+
   render() {
     return (
       // Add your component markup and other subcomponent references here.
@@ -39,16 +45,11 @@ export default class App extends Component {
         <Timer start={moment()} />
         <div>
           {_.map(this.state.board, (i, key) => {
-            const css = {
-              // display: 'inline-block',
-              float: 'left',
-              border: '1px inset #666',
-              margin: '2px',
-              width: '25px',
-              height: '25px'
-            };
-            css.clear = i.column === 0 ? 'both' : '';
-            return (<div key={key} style={css}>{i.column} {i.bomb}</div>);
+            return (
+              <Cell key={key} data={i} handler={this.cellClick.bind(null, i.column, i.row)}>
+                {i.bomb}
+              </Cell>
+            );
           })}
         </div>
       </section>
