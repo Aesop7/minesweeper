@@ -21,9 +21,9 @@ export const generate = (size = 3, bombs = 1) => {
   // for all bombs we're adding to the set, add them randomly
   while (bombs > 0) {
     const randomInt = Math.floor(Math.random() * (size ** 2));
-    const box = bombArray[randomInt];
-    if (!('bomb' in box)) {
-      box.bomb = 'boom';
+    const cell = bombArray[randomInt];
+    if (!('bomb' in cell)) {
+      cell.bomb = 'boom';
       bombs--;
     }
   }

@@ -1,7 +1,6 @@
 {
   "name": "minesweeper",
   "version": "0.0.1",
-  "description": "for LL Bean interview",
   "main": "index.js",
   "scripts": {
     "start": "node server.js",
