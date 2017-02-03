@@ -10,7 +10,8 @@ export default class App extends Component {
     super();
     this.state = {
       gameLevel: 9,
-      bombs: 10
+      bombs: 10,
+      visibleCells: [0, 2, 8, 12]
     };
   }
 
@@ -27,13 +28,19 @@ export default class App extends Component {
   doClick = (e) => {
     e.preventDefault();
     this.setState({
-      board: generate(this.state.gameLevel, this.state.bombs)
+      board: generate(this.state.gameLevel, this.state.bombs),
+      visibleCells: []
     });
   };
 
-  cellClick = (x, y) => {
-    console.log(x, y);
-    scanCell(this.state.board, x, y);
+  cellClick = (cell, key) => {
+    console.log(cell.row, cell.col); // not really used...
+    const results = scanCell(key, this.state.board);
+    console.log(results);
+    this.setState({
+      visibleCells: this.state.visibleCells.concat(results)
+    });
+    console.log(this.state.visibleCells);
   };
 
   render() {
@@ -46,9 +53,12 @@ export default class App extends Component {
         <div>
           {_.map(this.state.board, (i, key) => {
             return (
-              <Cell key={key} data={i} handler={this.cellClick.bind(null, i.column, i.row)}>
-                {i.bomb}
-              </Cell>
+              <Cell
+                key={key}
+                data={i}
+                visible={_.includes(this.state.visibleCells, key)}
+                handler={this.cellClick.bind(null, i, key)}
+              />
             );
           })}
         </div>
